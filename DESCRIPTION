@@ -9,10 +9,8 @@ Description: Material necessario para acompanhar o curso sobre ggplot2 ministrad
     Este pacote instala os slides, conjuntos de dados e pacotes necessarios para que o curso seja aproveitado.
 URL: https://github.com/mnunes/curso.ggplot2
 BugReports: https://github.com/mnunes/curso.ggplot2/issues
-Imports: tidyverse, lme4
+Imports: tidyverse
 License: GPL3
 Encoding: UTF-8
 LazyData: true
-Suggests: knitr,
-    rmarkdown
 VignetteBuilder: knitr
