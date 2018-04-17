@@ -13,4 +13,6 @@ Imports: tidyverse
 License: GPL3
 Encoding: UTF-8
 LazyData: true
+Suggests: knitr,
+    rmarkdown
 VignetteBuilder: knitr
