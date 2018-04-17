@@ -4,7 +4,7 @@ author: "Marcus Nunes"
 date: "17 e 18 de Maio de 2018"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Visualização de Dados com `ggplot2`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ library(ggplot2)
 library(lme4)
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = "#",
   echo=FALSE, 
   message=FALSE,
   fig.width=6,
