@@ -1,5 +1,5 @@
 ---
-title: "Visualização de Dados com `ggplot2`"
+title: "Visualização de Dados com ggplot2"
 author: "Marcus Nunes"
 date: "17 e 18 de Maio de 2018"
 output: rmarkdown::html_vignette
