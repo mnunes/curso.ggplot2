@@ -1,7 +1,7 @@
 \docType{data}
 \name{gapminder}
 \alias{gapminder}
-\title{Gapminder}
+\title{Dados socio-economicos de 142 paises entre 1950 e 2007}
 \format{Um tibble com 3313 observacoes nas seguintes 6 variaveis:
   \describe{
     \item{\code{country}}{Fator com o nome de 142 paises}
