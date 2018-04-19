@@ -11,14 +11,17 @@ vignette: >
 
 ```{r setup, include=FALSE}
 library(ggplot2)
-library(lme4)
+library(dplyr)
+library(curso.ggplot2)
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#",
-  echo=FALSE, 
+  comment = "#>",
+  echo=TRUE,
+  eval=TRUE, 
   message=FALSE,
-  fig.width=6,
-  fig.height=4
+  fig.width=8,
+  fig.height=6,
+  tidy=FALSE
 )
 ```
 
@@ -77,13 +80,7 @@ ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
 
 ## Sintaxe Básica
 
-- Trabalharemos com o conjunto de dados `sleepstudy`, do pacote `lme4`
-
-- Carregue este arquivo na memória do `R` através do comando
-
-```{r ggplot01a, echo=TRUE}
-library(lme4)
-```
+- Trabalharemos com o conjunto de dados `sleepstudy`
 
 
 
