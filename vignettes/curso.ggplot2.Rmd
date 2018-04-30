@@ -1,12 +1,13 @@
 ---
 title: "Visualização de Dados com `ggplot2`"
 author: "Marcus Nunes"
-date: "17 e 18 de Maio de 2018"
+date: "João Pessoa, 17 e 18 de Maio de 2018"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Visualização de Dados com `ggplot2`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+numbersections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -26,7 +27,8 @@ knitr::opts_chunk$set(
 ```
 
 
-## Apresentação
+
+# Apresentação
 
 - Marcus Nunes, professor do Departamento de Estatística da UFRN
 
@@ -40,7 +42,40 @@ knitr::opts_chunk$set(
 
 
 
-## Introdução
+
+# Preparação
+
+- Curso em duas partes
+
+- **Hoje:** introdução ao `ggplot2` e ao `dplyr`
+
+- Ideias básicas, mudança de paradigma e exemplos
+
+- **Amanhã:** aula prática
+
+- Análise de dados de gastos de deputados federais
+
+- O material deste curso está disponível em um pacote no `R`
+
+- Este pacote poder ser instalado com os comandos
+
+```{r instalacao01, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("mnunes/curso.ggplot2")
+```
+
+- Para ter acesso ao material em eu computador, carregue o pacote normalmente através do comando 
+
+```{r instalacao02, eval=FALSE}
+library(curso.ggplot2)
+```
+
+
+
+
+
+
+# Introdução
 
 - `ggplot2` é um pacote de visualização de dados
 
@@ -48,40 +83,34 @@ knitr::opts_chunk$set(
 
 - A ideia principal é criar gráficos como se eles fossem frases de uma língua, onde cada elemento do gráfico é uma palavra
 
-## Introdução
-
 - Isto nos permite construir gráficos tão complexos quanto quisermos
 
-- Os gráficos criados com esta ferramenta são, em geral, mais bonitos do que os gráficos tradicionais do R
+- Os gráficos criados com esta ferramenta são, em geral, mais bonitos do que os gráficos tradicionais do `R`
 
 - Entretanto, esta versatilidade tem dois custos associados:
 
-  - A curva de aprendizagem do `ggplot2` é maior do que das funções gráficas tradicionais do `R` (por exemplo, `plot`, `boxplot` e `hist`)
+  - A curva de aprendizagem do `ggplot2` é um pouco maior do que das funções gráficas tradicionais do `R` (por exemplo, `plot`, `boxplot` e `hist`)
 
-  - É uma ferramenta mais lenta para exibir os resultados dos gráficos criados
+  - É uma ferramenta um pouco mais lenta para exibir os resultados dos gráficos criados
 
-## Introdução
+- Por exemplo, veja o gráfico a seguir
 
-- Por exemplo, veja o gráfico do próximo slide
-
-- Este gráfico foi criado com muito pouco código utilizando `ggplot2`
+- Este gráfico foi criado com `ggplot2`, utilizando poucas linhas de código
 
 - Como seria possível criá-lo utilizando as ferramentas tradicionais do `R`?
-
-## Introdução
 
 ```{r sleepstudyPlot01, echo=FALSE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) + 
   geom_point() + 
-  scale_x_continuous(breaks=seq(0, 9, 3)) +
   labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
-  geom_smooth(method="lm", se=FALSE, color="black") + 
-  facet_wrap(~ Subject, nrow=3)
+  scale_x_continuous(breaks=seq(0, 9, 3)) +
+  facet_wrap(~ Subject, nrow=3) +
+  geom_smooth(method="lm", se=FALSE, colour="black")
 ```
 
-# Sintaxe Básica
 
-## Sintaxe Básica
+
+# Sintaxe Básica
 
 - O `ggplot2` exige que os dados a serem plotados estejam em um data frame
 
@@ -89,15 +118,36 @@ ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
 
 - **Sempre** teremos que transformar os dados para data frame ou construir um data frame com os dados que possuímos
 
+- Cada gráfico é formado por sete camadas: dados, estética, geometria, _facets_, estatística, coordenadas e tema
 
-## Sintaxe Básica
+- As três primeiras são fundamentais: *todo* gráfico vai possuí-las
+  
+  - dados: consistem na camada base; a partir dos dados que pensaremos quais variáveis serão trabalhadas
+
+  - estética: consiste nas variáveis selecionadas para plotagem, agrupamento, coloração etc.
+
+  - geometria: camada onde definimos as formas dos elementos gráficos, tais como pontos, linhas e e intervalos
+
+- As quatro seguintes são opcionais: elas permitem que personalizemos nossas visualizações
+
+  - _facets_: útil quando desejamos dividir informações do gráfico para uma melhor visualização, podendo ser utilizada para comparações de grupos
+
+  - estatística: é a camada que representa a análise dos dados, caso eles sejam transformados
+
+  - coordenadas: informa onde o gráfico será construído, se em coordenadas cartesianas ou polares, por exemplo
+
+  - tema: é a última camada, referente à visualização geral do gráfico
 
 - Trabalharemos com o conjunto de dados `sleepstudy`
 
+- Originalmente, este conjunto de dados faz parte do pacote `lme4`
 
+- Carregue este arquivo na memória do `R` através do comando
 
-
-## Sintaxe Básica
+```{r ggplot01a, echo=TRUE}
+library(curso.ggplot2)
+data("sleepstudy")
+```
 
 - Verifique se está tudo correto através dos comandos
 
@@ -106,17 +156,20 @@ str(sleepstudy)
 head(sleepstudy)
 ```
 
-
-
-## Sintaxe Básica
-
 - Este conjunto de dados reporta o tempo médio de reação (`Reaction`) de 18 voluntários após um certo número de dias (`Days`) em que eles dormiram 3 horas por noite
 
 - Queremos fazer a análise exploratória deste conjunto de dados
 
-- O objetivo ao final é que consigamos entender como construir o gráfico que vimos alguns slides atrás
+- O objetivo ao final é que consigamos entender como construir o gráfico que vimos anteriormente
 
-
+```{r sleepstudyPlot01b, echo=FALSE}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) + 
+  geom_point() + 
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  scale_x_continuous(breaks=seq(0, 9, 3)) +
+  facet_wrap(~ Subject, nrow=3) +
+  geom_smooth(method="lm", se=FALSE, colour="black")
+```
 
 ## Sintaxe Básica - Gráfico de Dispersão
 
@@ -124,18 +177,479 @@ head(sleepstudy)
 
 - Através dele vamos definir qual é a variável preditora e qual é a variável resposta em nosso conjunto de dados
 
-O comando básico a partir do qual vamos gerar todos os gráficos é
+- O comando básico a partir do qual vamos gerar todos os gráficos é
 
-```{r ggplot02, eval=FALSE}
+```{r ggplot02, echo=TRUE, eval=FALSE}
 ggplot(dados, aes(x=Preditora, y=Resposta))
 ```
 
 
-
-
-## Sintaxe Básica - Gráfico de Dispersão
-
-```{r ggplot03, eval=FALSE}
+```{r ggplot03, echo=TRUE, eval=TRUE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction))
 ```
+
+```{r ggplot04, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+  geom_point()
+```
+
+```{r ggplot05, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+  geom_point() +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga")
+```
+
+```{r ggplot06, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+  geom_point() +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  scale_x_continuous(breaks=seq(0, 9, 3))
+```
+
+```{r ggplot07, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+  geom_point() +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  scale_x_continuous(breaks=seq(0, 9, 3)) +
+  facet_wrap(~ Subject, nrow=3)
+```
+
+```{r ggplot08, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
+  geom_point() +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  scale_x_continuous(breaks=seq(0, 9, 3)) +
+  facet_wrap(~ Subject, nrow=3) +
+  geom_smooth(method="lm", se=FALSE, colour="black")
+```
+
+## Sintaxe Básica - Boxplot
+
+```{r ggplot13, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Subject, y=Reaction)) +
+  geom_boxplot() +
+  labs(x="Sujeito", y="Tempo de Reação (ms)", title="Estudo de Fadiga - Boxplots")
+```
+
+```{r ggplot14, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x="", y=Reaction)) +
+  geom_boxplot() +
+  labs(x="Sujeito", y="Tempo de Reação (ms)", title="Estudo de Fadiga - Boxplots") +
+  facet_wrap(~ Subject, nrow=3)
+```
+
+```{r ggplot15, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x="", y=Reaction)) +
+  geom_boxplot() +
+  labs(x="Sujeito", y="Tempo de Reação (ms)", title="Estudo de Fadiga - Boxplots") +
+  facet_wrap(~ Subject, nrow=3, scales="free_y")
+```
+
+
+## Sintaxe Básica - Histograma
+
+```{r ggplot09, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Reaction)) +
+  geom_histogram(binwidth=20)
+```
+
+```{r ggplot10, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Reaction)) +
+  geom_histogram(binwidth=20) +
+  labs(x="Tempo de Reação (ms)", y="Frequência", title="Estudo de Fadiga - Histograma")
+```
+
+
+```{r ggplot11, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Reaction)) +
+  geom_histogram(binwidth=20) +
+  labs(x="Tempo de Reação (ms)", y="Frequência", title="Estudo de Fadiga - Histogramas") +
+  facet_wrap(~ Subject, nrow=3)
+```
+
+
+
+```{r ggplot12, echo=TRUE, eval=TRUE}
+ggplot(sleepstudy, aes(x=Reaction)) +
+  geom_histogram(aes(y=..density..), binwidth=20) +
+  labs(x="Tempo de Reação (ms)", y="Frequência", title="Estudo de Fadiga - Histogramas") +
+  facet_wrap(~ Subject, nrow=3) +
+  geom_density(colur="red")
+```
+
+
+
+# dplyr
+
+- O pacote `dplyr' é utilizado para manipular dados
+
+- Foi lançado por Hadley Wickham, Romain François, Lionel Henry e Kirill Müller em 2014
+
+- Segue as ideias principais do `ggplot2`: criar uma gramática de análise de dados, como se comandos fossem verbos e frases pudessem ser construídas a partir deles
+
+- Isto nos permite manipular dados para extrairmos informações tão complexas quanto quisermos
+
+- O código utilizado para fazer estas manipulações é, em geral, mais limpo e enxuto do que os códigos tradicionais do `R`
+
+- Código mais limpo é mais fácil de ser auditado por outras pessoas e por nós mesmos no futuro, quando tivermos que procurar bugs
+
+- O `dplyr` possui algumas funções bastante simples
+
+- Entretanto, quando combinadas, elas produzem uma infinidade de resultados diferentes
+
+- Algumas destas funções são as seguintes:
+  - `select: seleciona variáveis baseada em seus nomes (colunas)
+  - `filter`: selecionas casos baseados em seus valores (linhas)
+  - `summarise`: resume múltiplos valores a apenas um
+  - `arrange`: muda a ordem das linhas
+  - `mutate`: cria novas variáveis em função de outras já existentes
+
+- Vamos ver como utilizar as funções `select` e `filter`
+
+- O funcionamento básico delas nos ajudará a entender como utilizar as demais funções do pacote
+
+- Vamos utilizar o conjunto de dados `gapminder` para aprender a utilizar o `dplyr`
+
+
+```{r dplyr00, echo=TRUE, eval=TRUE}
+data(gapminder)
+str(gapminder)
+```
+
+```{r dplyr01, echo=TRUE, eval=TRUE}
+select(gapminder, pibPerCapita)
+```
+
+```{r dplyr02, echo=TRUE, eval=TRUE}
+select(gapminder, pais, pibPerCapita)
+```
+
+```{r dplyr03, echo=TRUE, eval=TRUE}
+filter(gapminder, pibPerCapita > 10000)
+```
+
+```{r dplyr04, echo=TRUE, eval=TRUE}
+filter(gapminder, pais=="Brazil")
+```
+
+- Embora os comandos isolados já sejam bastante úteis, o verdadeiro poder deles surge quando os combinamos 
+
+- Utilizamos o comando `%>%`, chamado de _pipe_, para isto
+
+- Este comando serve para concatenar duas ou mais operações no `dplyr`
+
+- Por exemplo, se quisermos filtrar o país `Brazil` e obter apenas as colunas `ano` e `pibPerCapita`, fazemos o seguinte:
+
+```{r dplyr05}
+gapminder %>%
+  filter(pais=="Brazil") %>%
+  select(ano, pibPerCapita)
+```
+
+
+```{r dplyr06}
+gapminder %>%
+  filter(pais=="Brazil") %>%
+  select(ano, pibPerCapita) %>%
+  print(n=5)
+```
+
+```{r dplyr07}
+gapminder %>%
+  filter(pais=="Brazil") %>%
+  select(ano, pibPerCapita) %>%
+  print(n=Inf)
+```
+
+- A função `group_by` permite agrupar observações similares
+
+- Utilizada em conjunto com `summarise_all`, podemos calcular estatísticas sobre grupos
+
+- Por exemplo, se desejarmos calcular a média de cada variável por continente:
+
+```{r dplyr08}
+gapminder %>%
+  group_by(continente) %>%
+  summarise_all(mean)
+```
+
+- A função `summarise` permite que trabalhemos com apenas uma das colunas
+
+- Além disso, não é necessário ficar restrito a apenas uma estatística
+
+
+```{r dplyr09}
+gapminder %>%
+  group_by(continente) %>%
+  summarise(Media=mean(expVida), DesvPad=sd(expVida))
+```
+
+```{r dplyr10}
+gapminder %>%
+  group_by(continente) %>%
+  summarise(Media=mean(expVida), DesvPad=sd(expVida)) %>%
+  arrange(Media)
+```
+
+```{r dplyr11}
+gapminder %>%
+  group_by(continente) %>%
+  summarise(Media=mean(expVida), DesvPad=sd(expVida)) %>%
+  arrange(desc(Media))
+```
+
+```{r dplyr12}
+gapminder %>%
+  group_by(ano) %>%
+  count()
+```
+
+- Podemos usar a função `mutate` para adicionar colunas ao conjunto de dados, realizando operações sobre elas
+
+- Por exemplo, suponha que desejamos converter a coluna `pibPerCapita` para reais e padronizar as observações de `pibPerCapita` apenas para o ano de 2007:
+
+```{r dplyr13}
+gapminder %>%
+  filter(ano==2007) %>%
+  select(pibPerCapita) %>%
+  mutate(pibPerCapitaReais=pibPerCapita*3.5, 
+         pibPerCapitaPadronizado=scale(pibPerCapita))
+```
+
+
+# Sintaxe Avançada
+
+- Já vimos como preparar alguns dos gráficos mais utilizados na estatística
+
+- Já aprendemos como utilizar o `dplyr`
+
+- A partir de agora veremos como sofisticar nossas análises descritivas
+
+- Veremos diversos gráficos que combinam e remixam ideias já conhecidas
+
+
+
+## Sintaxe Avançada - Bubble Chart
+
+```{r bubbleChart02, echo=TRUE, eval=TRUE}
+library(dplyr)
+gapminder %>%
+  filter(ano==2007) %>%
+  ggplot(., aes(x=log(pibPerCapita), y=expVida, colour=continente)) +
+  geom_point(aes(size=pop, alpha=0.25)) +
+  labs(x="Logaritmo do PIB per capita", y="Expectativa de Vida ao Nascer", colour="continente")
+```
+
+## Sintaxe Avançada - Histograma Marginal
+
+```{r histMarginal01, echo=TRUE, eval=TRUE}
+library(ggExtra)
+g <- gapminder %>%
+  filter(ano==2007) %>%
+  ggplot(., aes(x=log(pibPerCapita), y=expVida, colour=continente)) +
+  geom_point(aes(size=pop, alpha=0.25)) +
+  labs(x="Logaritmo do PIB per capita", y="Expectativa de Vida ao Nascer", colour="continente")
+ggMarginal(g, type = "histogram", fill="transparent")
+```
+
+
+## Sintaxe Avançada - Gráfico de Área
+
+```{r areaChart01, echo=TRUE, eval=TRUE}
+gapminder %>%
+  filter(pais=="France") %>%
+  mutate(variacao=c(0, diff(pibPerCapita))) %>%
+  ggplot(., aes(x=ano, y=variacao)) +
+  geom_area() +
+  labs(x="Ano", y="Variação Anual do PIB per Capita")
+```
+
+
+
+
+## Sintaxe Avançada - Gráfico de Linha
+
+```{r lineChart01, echo=TRUE, eval=TRUE}
+anos   <- seq(from=1952, to=2007, by=5)
+paises <- c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Equador", "Paraguay", "Peru", "Uruguay", "Venezuela")
+gapminder %>%
+  filter(ano %in% anos) %>%
+  filter(pais %in% paises) %>%
+  ggplot(., aes(x=ano, y=expVida, colour=pais)) +
+  geom_line() +
+  labs(x="Ano", y="Expectativa de Vida ao Nascer", colour="Países") +
+  scale_x_continuous(breaks=anos)
+```
+
+
+## Sintaxe Avançada - Gráfico de Linha
+
+```{r lineChart02, echo=TRUE, eval=TRUE}
+anos   <- seq(from=1952, to=2007, by=5)
+paises <- c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", 
+            "Equador", "Paraguay", "Peru", "Uruguay", "Venezuela")
+gapminder %>%
+  filter(ano %in% anos) %>%
+  filter(pais %in% paises) %>%
+  ggplot(., aes(x=ano, y=expVida, colour=pais)) +
+  geom_line() +
+  labs(x="Ano", y="Expectativa de Vida ao Nascer", colour="Países") +
+  scale_x_continuous(breaks=anos) +
+  scale_color_brewer(palette="Reds")
+```
+
+
+## Sintaxe Avançada - Gráfico de Linha
+
+```{r lineChart03, echo=TRUE, eval=TRUE}
+anos   <- seq(from=1952, to=2007, by=5)
+paises <- c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", 
+            "Equador", "Paraguay", "Peru", "Uruguay", "Venezuela")
+gapminder %>%
+  filter(ano %in% anos) %>%
+  filter(pais %in% paises) %>%
+  ggplot(., aes(x=ano, y=expVida, colour=pais)) +
+  geom_line() +
+  labs(x="Ano", y="Expectativa de Vida ao Nascer", colour="Países") +
+  scale_x_continuous(breaks=anos) +
+  scale_color_brewer(palette="Spectral")
+```
+
+
+
+## Sintaxe Avançada - Gráfico de Linha
+
+```{r lineChart04, echo=TRUE, eval=TRUE}
+anos   <- seq(from=1952, to=2007, by=5)
+paises <- c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", 
+            "Equador", "Paraguay", "Peru", "Uruguay", "Venezuela")
+gapminder %>%
+  filter(ano %in% anos) %>%
+  filter(pais %in% paises) %>%
+  ggplot(., aes(x=ano, y=expVida, colour=pais)) +
+  geom_line() +
+  labs(x="Ano", y="Expectativa de Vida ao Nascer", colour="Países") +
+  scale_x_continuous(breaks=anos) +
+  scale_color_brewer(palette="Spectral") +
+  theme_bw()
+```
+
+
+
+## Sintaxe Avançada - Gráfico de Barra
+
+```{r barChart01, echo=TRUE, eval=TRUE}
+gapminder %>%
+  filter(ano==2007) %>%
+  group_by(continente) %>%
+  summarise(ExpVidaMedia=mean(expVida)) %>%
+  ggplot(., aes(x=continente, y=ExpVidaMedia)) +
+  geom_col() +
+  labs(x="Continente", y="Expectativa de Vida ao Nascer")
+```
+
+
+
+
+## Sintaxe Avançada - Gráfico de Barra
+
+```{r barChart03, echo=TRUE, eval=TRUE}
+gapminder %>%
+  filter(ano==2007) %>%
+  group_by(continente) %>%
+  summarise(ExpVidaMedia=mean(expVida)) %>%
+  ggplot(., aes(x=reorder(continente, -ExpVidaMedia), y=ExpVidaMedia)) +
+  geom_col() +
+  labs(x="Continente", y="Expectativa de Vida ao Nascer")
+```
+
+
+
+
+## Sintaxe Avançada - Dotplot + Boxplot
+
+```{r DotplotBoxplot01, echo=TRUE, eval=TRUE}
+gapminder %>%
+  filter(ano==2007) %>%
+  ggplot(., aes(x=continente, y=expVida)) +
+  geom_boxplot() +
+  geom_dotplot(binaxis="y", stackdir="center", dotsize = .5, fill="red") +
+  labs(x="Continente", y="Expectativa de Vida ao Nascer")
+```
+
+
+## Sintaxe Avançada - Violin Plot
+
+```{r ViolinPlot01, echo=TRUE, eval=TRUE}
+gapminder %>%
+  filter(ano==2007) %>%
+  ggplot(., aes(x=continente, y=expVida, fill=continente)) +
+  geom_violin() +
+  labs(x="Continente", y="Expectativa de Vida ao Nascer", colour="Continente")
+```
+
+
+## Sintaxe Avançada - Violin Plot
+
+```{r ViolinPlot02, echo=TRUE, eval=TRUE}
+anos   <- seq(from=1952, to=2007, by=5)
+
+gapminder %>%
+  filter(ano %in% anos) %>%
+  ggplot(., aes(x=continente, y=expVida, fill=continente)) +
+  geom_violin() +
+  labs(x="Continente", y="Expectativa de Vida ao Nascer", colour="Continente") +
+  facet_wrap(~ ano, nrow=3) +
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1))
+```
+
+
+
+
+
+# Exercícios
+
+1. Eu preparei um conjunto de dados com todos os mais de 3 milhões de pedidos de reembolsos feitos por deputados federais brasileiros entre 2009 e 2017. Carregue este conjunto na memória do `R` através do comando
+
+```{r reembolsos01, echo=TRUE, eval=FALSE}
+reembolsos::camara
+```
+
+O comando
+
+```{r reembolsos02, echo=TRUE, eval=FALSE}
+?camara
+```
+
+descreve o siginificado de cada coluna deste conjunto de dados. Vamos utilizar os conhecimentos aprendidos neste curso para avaliar os gastos de nossos representantes no legislativo.
+
+
+
+## Exercícios
+
+2. Encontre o número total de gastos dos deputados da Paraíba neste conjunto de dados utilizando a coluna `state`.
+
+3. Repita o exercício anterior, mas agrupe os resultados por `year`.
+
+4. A coluna `congressperson_name` contém o nome dos deputados brasileiros. Descubra quais os 10 deputados da Paraíba que fizeram mais pedidos únicos de reembolso no último mandato (2015 a 2017), sem considerar o valor destes reembolsos.
+
+## Exercícios
+
+5. Utilize a coluna `total_net_value` e descubra os deputados da Paraíba que tiveram os maiores valores totais ressarcidos durante o atual mandato (2015 a 2017).
+
+6. Agrupe os gastos dos deputados do Brasil inteiro por partido (`party`). A partir disso, crie um gráfico de linhas mostrando a evolução dos gastos totais por partido entre 2009 e 2017.
+
+7. Crie um gráfico de barras que exiba as categorias de gasto (`subquota_description`) que de acordo o total de reembolsos pedidos em 2017
+
+
+
+## Exercícios
+
+8. Dentro da coluna `subquota_description`, os gastos dos deputados com refeições são identificados como `Congressperson meal`. Encontre os restaurantes (`supplier`) com maiores pedidos médios de reembolso feitos pelos deputados da Paraíba durante todo o período disponível.
+
+9. Repita a análise do item anterior, contando o número de gastos em cada local
+
+10. Repita a análise anterior, mantendo no resultado final apenas os locais com 10 ou mais reembolsos
+
+
 
