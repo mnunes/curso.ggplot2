@@ -10,10 +10,10 @@ Description: Material necessario para acompanhar o curso sobre ggplot2 ministrad
 URL: https://github.com/mnunes/curso.ggplot2
 BugReports: https://github.com/mnunes/curso.ggplot2/issues
 Imports: dplyr, ggplot2, ggExtra
+Suggests: knitr, rmarkdown
+Remotes: mnunes/reembolsos
 License: GPL3
 Encoding: UTF-8
 LazyData: true
-Suggests: knitr,
-    rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
