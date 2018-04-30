@@ -6,11 +6,11 @@ Date: 2018-05-17
 Author: Marcus Nunes
 Maintainer: Marcus Nunes <marcus@marcusnunes.me>
 Description: Material necessario para acompanhar o curso sobre ggplot2 ministrado durante o Encontro Paraibano de Estatistica 2018.
-    Este pacote instala os slides, conjuntos de dados e pacotes necessarios para que o curso seja aproveitado.
+    Este pacote instala o manual, conjuntos de dados e pacotes necessarios para que o curso seja aproveitado.
 URL: https://github.com/mnunes/curso.ggplot2
 BugReports: https://github.com/mnunes/curso.ggplot2/issues
-Imports: dplyr, ggplot2, ggExtra
-Suggests: knitr, rmarkdown
+Imports: dplyr, ggplot2
+Suggests: knitr, rmarkdown, ggExtra
 Remotes: mnunes/reembolsos
 License: GPL3
 Encoding: UTF-8
