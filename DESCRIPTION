@@ -2,9 +2,11 @@ Package: curso.ggplot2
 Type: Package
 Title: Curso sobre o pacote ggplot2 ministrado no EPBEST 2018
 Version: 0.1
-Date: 2018-05-17
+Date: 2018-04-30
 Author: Marcus Nunes
 Maintainer: Marcus Nunes <marcus@marcusnunes.me>
+Depends:
+  R (>= 3.0.0)
 Description: Material necessario para acompanhar o curso sobre ggplot2 ministrado durante o Encontro Paraibano de Estatistica 2018.
     Este pacote instala o manual, conjuntos de dados e pacotes necessarios para que o curso seja aproveitado.
 URL: https://github.com/mnunes/curso.ggplot2
