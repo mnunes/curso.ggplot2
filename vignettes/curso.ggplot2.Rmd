@@ -102,7 +102,7 @@ library(curso.ggplot2)
 ```{r sleepstudyPlot01, echo=FALSE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) + 
   geom_point() + 
-  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo sobre Fadiga") +
   scale_x_continuous(breaks=seq(0, 9, 3)) +
   facet_wrap(~ Subject, nrow=3) +
   geom_smooth(method="lm", se=FALSE, colour="black")
@@ -165,7 +165,7 @@ head(sleepstudy)
 ```{r sleepstudyPlot01b, echo=FALSE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) + 
   geom_point() + 
-  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo sobre Fadiga") +
   scale_x_continuous(breaks=seq(0, 9, 3)) +
   facet_wrap(~ Subject, nrow=3) +
   geom_smooth(method="lm", se=FALSE, colour="black")
@@ -196,20 +196,20 @@ ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
 ```{r ggplot05, echo=TRUE, eval=TRUE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
   geom_point() +
-  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga")
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo sobre Fadiga")
 ```
 
 ```{r ggplot06, echo=TRUE, eval=TRUE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
   geom_point() +
-  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo sobre Fadiga") +
   scale_x_continuous(breaks=seq(0, 9, 3))
 ```
 
 ```{r ggplot07, echo=TRUE, eval=TRUE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
   geom_point() +
-  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo sobre Fadiga") +
   scale_x_continuous(breaks=seq(0, 9, 3)) +
   facet_wrap(~ Subject, nrow=3)
 ```
@@ -217,7 +217,7 @@ ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
 ```{r ggplot08, echo=TRUE, eval=TRUE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) +
   geom_point() +
-  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo de Fadiga") +
+  labs(x="Dias", y="Tempo de Reação (ms)", title="Estudo sobre Fadiga") +
   scale_x_continuous(breaks=seq(0, 9, 3)) +
   facet_wrap(~ Subject, nrow=3) +
   geom_smooth(method="lm", se=FALSE, colour="black")
