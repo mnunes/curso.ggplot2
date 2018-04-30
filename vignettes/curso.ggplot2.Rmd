@@ -20,8 +20,8 @@ knitr::opts_chunk$set(
   echo=TRUE,
   eval=TRUE, 
   message=FALSE,
-  fig.width=8,
-  fig.height=6,
+  fig.width=6,
+  fig.height=4.5,
   tidy=FALSE
 )
 ```
