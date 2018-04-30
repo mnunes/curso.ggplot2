@@ -1,5 +1,5 @@
 ---
-title: "Visualização de Dados com ggplot2"
+title: "Visualização de Dados com `ggplot2`"
 author: "Marcus Nunes"
 date: "17 e 18 de Maio de 2018"
 output: rmarkdown::html_vignette
@@ -26,7 +26,19 @@ knitr::opts_chunk$set(
 ```
 
 
-# Introdução
+## Apresentação
+
+- Marcus Nunes, professor do Departamento de Estatística da UFRN
+
+- Big Data
+
+- Visualização de dados
+
+- http://marcusnunes.me/
+
+- marcus@marcusnunes.me
+
+
 
 ## Introdução
 
@@ -58,7 +70,7 @@ knitr::opts_chunk$set(
 
 ## Introdução
 
-```{r sleepstudyPlot01}
+```{r sleepstudyPlot01, echo=FALSE}
 ggplot(sleepstudy, aes(x=Days, y=Reaction)) + 
   geom_point() + 
   scale_x_continuous(breaks=seq(0, 9, 3)) +
