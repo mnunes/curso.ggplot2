@@ -15,7 +15,7 @@ Dependendo dos pacotes que seu computador já possua em disco, a instalação do
     
     vignette("curso.ggplot2")
 
-vai abrir o material que utilizei durante o evento. Há alguns exercícios ao final dele. As respostas estão [neste link]().
+vai abrir o material que utilizei durante o evento. Há alguns exercícios ao final deste material. As respostas dos exercícios estão [neste link](https://github.com/mnunes/curso.ggplot2/blob/master/exercicios.R).
 
 
 
