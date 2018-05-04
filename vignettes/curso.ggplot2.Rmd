@@ -609,23 +609,21 @@ gapminder %>%
 
 # Exercícios
 
-1. Eu preparei um conjunto de dados com todos os mais de 3 milhões de pedidos de reembolsos feitos por deputados federais brasileiros entre 2009 e 2017. Carregue este conjunto na memória do `R` através do comando
+1. Eu preparei um conjunto de dados com todos os mais de 3 milhões de pedidos de reembolsos feitos por deputados federais brasileiros, originários do nordeste, entre 2009 e 2018. Carregue este conjunto na memória do `R` através do comando
 
 ```{r reembolsos01, echo=TRUE, eval=FALSE}
-reembolsos::camara
+data(camara.ne)
 ```
 
 O comando
 
 ```{r reembolsos02, echo=TRUE, eval=FALSE}
-?camara
+?camara.ne
 ```
 
 descreve o siginificado de cada coluna deste conjunto de dados. Vamos utilizar os conhecimentos aprendidos neste curso para avaliar os gastos de nossos representantes no legislativo.
 
-
-
-## Exercícios
+Como os gastos de 2018 ainda não foram finalizados, crie um objeto chamado `reembolsos` com os gastos entre 2009 e 2017.
 
 2. Encontre o número total de gastos dos deputados da Paraíba neste conjunto de dados utilizando a coluna `state`.
 
@@ -633,17 +631,11 @@ descreve o siginificado de cada coluna deste conjunto de dados. Vamos utilizar o
 
 4. A coluna `congressperson_name` contém o nome dos deputados brasileiros. Descubra quais os 10 deputados da Paraíba que fizeram mais pedidos únicos de reembolso no último mandato (2015 a 2017), sem considerar o valor destes reembolsos.
 
-## Exercícios
-
 5. Utilize a coluna `total_net_value` e descubra os deputados da Paraíba que tiveram os maiores valores totais ressarcidos durante o atual mandato (2015 a 2017).
 
 6. Agrupe os gastos dos deputados do Brasil inteiro por partido (`party`). A partir disso, crie um gráfico de linhas mostrando a evolução dos gastos totais por partido entre 2009 e 2017.
 
 7. Crie um gráfico de barras que exiba as categorias de gasto (`subquota_description`) que de acordo o total de reembolsos pedidos em 2017
-
-
-
-## Exercícios
 
 8. Dentro da coluna `subquota_description`, os gastos dos deputados com refeições são identificados como `Congressperson meal`. Encontre os restaurantes (`supplier`) com maiores pedidos médios de reembolso feitos pelos deputados da Paraíba durante todo o período disponível.
 
