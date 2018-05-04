@@ -11,8 +11,7 @@ Description: Material necessario para acompanhar o curso sobre ggplot2 ministrad
     Este pacote instala o manual, conjuntos de dados e pacotes necessarios para que o curso seja aproveitado.
 URL: https://github.com/mnunes/curso.ggplot2
 BugReports: https://github.com/mnunes/curso.ggplot2/issues
-Imports: dplyr, ggplot2, ggExtra, knitr, rmarkdown, reembolsos
-Remotes: mnunes/reembolsos
+Imports: dplyr, ggplot2, ggExtra, knitr, rmarkdown
 License: GPL3
 Encoding: UTF-8
 LazyData: true
