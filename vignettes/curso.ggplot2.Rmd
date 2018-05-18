@@ -281,7 +281,7 @@ ggplot(sleepstudy, aes(x=Reaction)) +
 
 # dplyr
 
-- O pacote `dplyr' é utilizado para manipular dados
+- O pacote `dplyr` é utilizado para manipular dados
 
 - Foi lançado por Hadley Wickham, Romain François, Lionel Henry e Kirill Müller em 2014
 
