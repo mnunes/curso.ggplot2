@@ -635,7 +635,7 @@ Como os gastos de 2018 ainda não foram finalizados, crie um objeto chamado `ree
 
 6. Agrupe os gastos dos deputados do Brasil inteiro por partido (`party`). A partir disso, crie um gráfico de linhas mostrando a evolução dos gastos totais por partido entre 2009 e 2017.
 
-7. Crie um gráfico de barras que exiba as categorias de gasto (`subquota_description`) que de acordo o total de reembolsos pedidos em 2017
+7. Crie um gráfico de barras que exiba as categorias de gasto (`subquota_description`) de acordo o total de reembolsos pedidos em 2017
 
 8. Dentro da coluna `subquota_description`, os gastos dos deputados com refeições são identificados como `Congressperson meal`. Encontre os restaurantes (`supplier`) com maiores pedidos médios de reembolso feitos pelos deputados da Paraíba durante todo o período disponível.
 
