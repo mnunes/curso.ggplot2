@@ -1,0 +1,145 @@
+---
+title: "Resolução dos Exercícios do Minicurso"
+author: "Marcus Nunes"
+date: "5/18/2018"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Exercício 1
+
+Em primeiro lugar, iremos carregar os pacotes necessários para realizar a nossa análise e filtrar os dados de acordo com o problema.
+
+```{r exercicio_01}
+library(curso.ggplot2)
+data("camara.ne")
+library(ggplot2)
+library(dplyr)
+reembolsos <- camara.ne %>%
+  filter(year <= 2017)
+```
+
+
+## Exercício 2
+
+```{r exercicio_02_de_verdade}
+reembolsos %>%
+  group_by(state) %>%
+  count()
+```
+
+O número total de pedidos de reembolsos por deputados federais da Paraíba foi 55152.
+
+## Exercício 3
+
+```{r exercicio_03}
+reembolsos %>%
+  group_by(year) %>%
+  count()
+```
+
+
+## Exercício 4
+
+```{r exercicio_04}
+reembolsos_PB <- reembolsos %>%
+  filter(state=="PB") %>%
+  filter(year>=2015)
+
+reembolsos_PB %>%
+  group_by(congressperson_name) %>%
+  count() %>%
+  arrange(desc(n))
+```
+
+## Exercício 5
+
+
+```{r exercicio_05}
+reembolsos_PB %>%
+  group_by(congressperson_name) %>%
+  summarise(Total=sum(total_net_value)) %>%
+  arrange(desc(Total))
+```
+
+
+## Exercício 6
+
+
+```{r exercicio_06}
+reembolsos %>%
+  group_by(year, party) %>%
+  summarise(Total=sum(total_net_value)) %>%
+  ggplot(., aes(x=year, y=Total, colour=party)) +
+  geom_line() +
+  scale_x_continuous(breaks=seq(2009, 2017, 2))
+```
+
+
+## Exercício 7
+
+
+```{r exercicio_07, fig.height=15}
+reembolsos %>%
+  filter(year==2017) %>%
+  group_by(subquota_description) %>%
+  summarise(Total=sum(total_net_value)) %>%
+  ggplot(., aes(x=reorder(subquota_description, -Total), y=Total)) +
+  geom_col() +
+  labs(x="Descrição da Subquota", y="Valor Total") +
+  theme(axis.text.x = element_text(angle = 90, vjust=0.5, hjust = 1))
+```
+
+
+
+## Exercício 8
+
+
+```{r exercicio_08}
+reembolsos_PB %>%
+  filter(subquota_description=="Congressperson meal") %>%
+  filter(year==2017) %>%
+  group_by(supplier) %>%
+  summarise(Media=mean(total_net_value)) %>%
+  arrange(desc(Media))
+```
+
+
+```{r exercicio_08b}
+reembolsos %>%
+  filter(state=="PB") %>%
+  filter(subquota_description=="Congressperson meal") %>%
+  arrange(desc(total_net_value)) %>%
+  select(congressperson_name, party, supplier, total_net_value) %>%
+  arrange(desc(total_net_value))
+```
+
+
+## Exercício 9
+
+```{r exercicio_09}
+reembolsos_PB %>%
+  filter(subquota_description=="Congressperson meal") %>%
+  filter(year==2017) %>%
+  group_by(supplier) %>%
+  count() %>%
+  arrange(desc(n))
+```
+
+
+## Exercício 10
+
+```{r exercicio_10}
+reembolsos_PB %>%
+  filter(subquota_description=="Congressperson meal") %>%
+  filter(year==2017) %>%
+  group_by(supplier) %>%
+  count() %>%
+  arrange(desc(n))
+```
+
+
