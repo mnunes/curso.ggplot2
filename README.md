@@ -11,7 +11,10 @@ A fim de facilitar o entendimento dos alunos do curso, decidi criar um pacote no
     install.packages("devtools") # caso o pacote devtools não esteja instalado
     devtools::install_github("mnunes/curso.ggplot2", build_vignettes=TRUE)
     
-Dependendo dos pacotes que seu computador já possua em disco, a instalação do pacote `curso.ggplot2` pode acabar demorando um pouco. Se tudo correr bem, o comando
+Dependendo dos pacotes que seu computador já possua em disco, a instalação do pacote `curso.ggplot2` pode acabar demorando um pouco. Se o seu computador roda Windows, também é necessário instalar o programa [Rtools](https://cran.r-project.org/bin/windows/Rtools/).
+
+
+Se tudo correr bem, o comando
     
     vignette("curso.ggplot2")
 
